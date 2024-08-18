@@ -28,6 +28,10 @@ func main() {
 	for _, mp4 := range mp4Files {
 		log.Println(mp4)
 		srt := strings.Replace(mp4, filepath.Ext(mp4), ".srt", 1)
+		if has, _ := isFileExists(srt); !has {
+			fmt.Println("srt File not found skip", srt)
+			continue
+		}
 		mkv := strings.Replace(mp4, filepath.Ext(mp4), ".mkv", 1)
 		merge.MkvWithAss(mp4, srt, mkv)
 	}
@@ -60,4 +64,19 @@ func getMP4Files(dir string) ([]string, error) {
 	}
 
 	return mp4Files, nil
+}
+
+func isFileExists(filePath string) (bool, error) {
+	// 获取文件信息
+	info, err := os.Stat(filePath)
+	if os.IsNotExist(err) {
+		// 文件不存在
+		return false, nil
+	}
+	if err != nil {
+		// 其他错误
+		return false, err
+	}
+	// 判断是否是文件
+	return !info.IsDir(), nil
 }
