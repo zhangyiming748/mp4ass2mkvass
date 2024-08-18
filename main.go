@@ -27,8 +27,8 @@ func main() {
 	// 打印所有找到的 mp4 文件路径
 	for _, mp4 := range mp4Files {
 		log.Println(mp4)
-		srt := strings.Replace(file, filepath.Ext(mp4), ".srt", 1)
-		mkv := strings.Replace(file, filepath.Ext(mp4), ".mkv", 1)
+		srt := strings.Replace(mp4, filepath.Ext(mp4), ".srt", 1)
+		mkv := strings.Replace(mp4, filepath.Ext(mp4), ".mkv", 1)
 		merge.MkvWithAss(mp4, srt, mkv)
 	}
 }
