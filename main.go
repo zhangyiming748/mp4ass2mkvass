@@ -32,8 +32,8 @@ func main() {
 			fmt.Println("srt File not found skip", srt)
 			continue
 		}
-		mkv := strings.Replace(mp4, filepath.Ext(mp4), ".mkv", 1)
-		merge.MkvWithAss(mp4, srt, mkv)
+		sub := strings.Replace(mp4, filepath.Ext(mp4), "_subtitle.mp4", 1)
+		merge.MkvWithAss(mp4, srt, sub)
 	}
 }
 
